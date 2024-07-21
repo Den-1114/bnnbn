@@ -20,7 +20,9 @@ def receive():
                 print(message)
         except Exception as e:
             print(f'An error occurred: {e}\nClosing connection...')
+            print('Connection closed...')
             client.close()
+            client.send(DISCONNECT_MESSAGE.encode(FORMAT))
             break
 
 def write():
@@ -32,6 +34,7 @@ def write():
             send(message)
     else:
         print('Wrong code')
+        client.send(DISCONNECT_MESSAGE.encode(FORMAT))
         client.close()
 
 def send(msg):
